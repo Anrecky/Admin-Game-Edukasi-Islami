@@ -142,7 +142,7 @@ $stmt = $items->ambilHasil();
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 
                 <div class="container my-4">
-                    <h2>Tabel Tes</h2>
+                    <h2>Tabel Hasil</h2>
                     <div class="table-responsive w-75">
                         <table id="tbl-data" class="table table-striped ">
                             <thead>

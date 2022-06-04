@@ -112,7 +112,7 @@ $stmt = $items->ambilHasil();
                 <div class="position-sticky pt-3">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="<?php echo setUrl('/pertanyaan.php') ?>">
+                            <a class="nav-link" href="<?php echo setUrl('/pertanyaan.php') ?>">
                                 <i class="fas fa-scroll"></i>
                                 Pertanyaan
                             </a>
@@ -130,7 +130,7 @@ $stmt = $items->ambilHasil();
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo setUrl('/hasil.php') ?>">
+                            <a class="nav-link active" aria-current="page" href="<?php echo setUrl('/hasil.php') ?>">
                                <i class="fas fa-award"></i>
                                 Hasil
                             </a>

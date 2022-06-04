@@ -116,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </li>
                         <li class="nav-item">
                            <a class="nav-link" href="<?php echo setUrl('/hasil.php') ?>">
-                               <i class="fas fa-star"></i>
+                              <i class="fas fa-award"></i>
                                 Hasil
                             </a>
                         </li>

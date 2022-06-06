@@ -26,6 +26,7 @@ $item->id_kategori = intval($data->id_kategori);
 $item->benar = $data->benar;
 $item->opsi_dipilih = $data->opsi_dipilih;
 $item->id_hasil = intval($data->id_hasil);
+$item->tgl_waktu = $data->tgl_waktu ? $data->tgl_waktu : date("Y-m-d H:i:s") ;
 
 if($item->tambahDetailHasil()){
     http_response_code(201);

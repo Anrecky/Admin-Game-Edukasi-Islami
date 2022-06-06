@@ -82,10 +82,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="utf-8">
     <title>Halaman Admin Data Pertanyaan | Game Edukasi Islami (Giovani)</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link rel="stylesheet" href="../admin.css">
-    <link rel="stylesheet" type="text/css" href="../DataTables/datatables.min.css" />
+   <link rel="stylesheet" href="<?php echo "http://".$_SERVER['HTTP_HOST']."/admin/vendor/fontawesome-free-5.7.2-web/css/all.min.css"; ?>">
+    <link href="<?php echo "http://".$_SERVER['HTTP_HOST']."/admin/vendor/bootstrap-5.0.2-dist/css/bootstrap.min.css"; ?>" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo "http://".$_SERVER['HTTP_HOST']."/admin/admin.css"; ?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo "http://".$_SERVER['HTTP_HOST']."/admin/vendor/DataTables/datatables.min.css"; ?>" />
 
 </head>
 
@@ -213,8 +213,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input value="true" type="hidden" name="delete">
         <input type="number" name="idpertanyaan" id="id-pertanyaan">
     </form>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="../DataTables/datatables.min.js"></script>
+    <script src="<?php echo "http://".$_SERVER['HTTP_HOST']."/admin/vendor/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"; ?>" ></script>
+    <script type="text/javascript" src="<?php echo "http://".$_SERVER['HTTP_HOST']."/admin/vendor/DataTables/datatables.min.js"; ?>"></script>
     <script type="text/javascript" src="./pertanyaan.js"></script>
 </body>
 

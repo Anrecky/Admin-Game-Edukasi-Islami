@@ -1,5 +1,6 @@
 <?php
 date_default_timezone_set('Asia/Jakarta');
+ini_set('display_errors', 1);
 class Database
 {
     private $host = "localhost";

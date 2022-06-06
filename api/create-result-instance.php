@@ -22,7 +22,7 @@ if ($item->tambahHasilID()) {
         "id" => $item->id,
         "categoryId" => $item->id_kategori,
         "score" => $item->skor,
-        "dateTime" => $dt->format('Y-m-d\TH:i:s.').substr($dt->format('u'),0,3).'Z',
+        "dateTime" => $dt->format('Y-m-d\TH:i:s'),
     );
     echo json_encode($hasil);
 } else {

@@ -23,6 +23,7 @@ $item->opsi_dua = $data->opsi_dua;
 $item->opsi_tiga = $data->opsi_tiga;
 $item->opsi_empat = $data->opsi_empat;
 $item->id_kategori = intval($data->id_kategori);
+$item->benar = $data->benar;
 $item->opsi_dipilih = $data->opsi_dipilih;
 $item->id_hasil = intval($data->id_hasil);
 

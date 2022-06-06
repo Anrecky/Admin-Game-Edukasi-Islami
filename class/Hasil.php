@@ -10,6 +10,7 @@ class Hasil
     public $id_kategori;
     public $skor;
     public $tgl_waktu;
+    public $jenis_kategori;
 
     // Koneksi DB
     public function __construct($db)
@@ -19,7 +20,7 @@ class Hasil
     // Ambil Seluruh
     public function ambilHasil()
     {
-        $sqlQuery = "SELECT tbl_h.id, tbl_h.skor, tbl_h.tgl_waktu, tbl_k.jenis_kategori FROM " . $this->db_table . " AS tbl_h RIGHT JOIN tbl_kategori AS tbl_k ON tbl_h.id = tbl_k.id ";
+        $sqlQuery = "SELECT tbl_h.id, tbl_h.skor, tbl_h.tgl_waktu, tbl_k.jenis_kategori, (SELECT COUNT(*) FROM tbl_hasil_detail WHERE id_hasil=tbl_h.id) detail FROM tbl_hasil tbl_h INNER JOIN tbl_kategori tbl_k ON tbl_h.id_kategori = tbl_k.id";
         $stmt = $this->conn->prepare($sqlQuery);
         $stmt->execute();
         return $stmt;
@@ -70,7 +71,8 @@ class Hasil
     // READ single
     public function ambilSatuHasil()
     {
-        $sqlQuery = "SELECT id, id_kategori, skor, tgl_waktu FROM " . $this->db_table . " WHERE id = ? LIMIT 0,1";
+        $sqlQuery = "SELECT tbl_h.id, tbl_h.id_kategori, tbl_k.jenis_kategori, tbl_h.skor, tbl_h.tgl_waktu FROM $this->db_table AS tbl_h INNER JOIN tbl_kategori AS tbl_k ON tbl_h.id_kategori=tbl_k.id WHERE tbl_h.id = ? LIMIT 0,1";
+        
         $stmt = $this->conn->prepare($sqlQuery);
         $stmt->bindParam(1, $this->id);
         $stmt->execute();
@@ -79,39 +81,43 @@ class Hasil
         $this->id = $dataRow['id'];
         $this->id_kategori = $dataRow['id_kategori'];
         $this->skor = $dataRow['skor'];
+        $this->jenis_kategori = $dataRow['jenis_kategori'];
         $this->tgl_waktu = $dataRow['tgl_waktu'];
     }
     // UPDATE
-    public function perbaruiKategori()
+    public function perbaruiHasil()
     {
-        $sqlQuery = "UPDATE " . $this->db_table . " SET jenis_kategori = :jenis_kategori WHERE id = :id";
+        $sqlQuery = "UPDATE " . $this->db_table . " SET id_kategori = :id_kategori, skor = :skor, tgl_waktu = :tgl_waktu WHERE id = :id";
 
         $stmt = $this->conn->prepare($sqlQuery);
 
-        $this->jenis_kategori = htmlspecialchars(strip_tags($this->jenis_kategori));
-        $this->id = htmlspecialchars(strip_tags($this->id));
+        $this->id_kategori = intval(strip_tags($this->id_kategori));
+        $this->skor = intval(strip_tags($this->skor));
+        $this->tgl_waktu = date_format($this->tgl_waktu, "Y-m-d H:i:s");
+        $this->id = intval(strip_tags($this->id));
 
         // bind data
-        $stmt->bindParam(":jenis_kategori", $this->jenis_kategori);
+        $stmt->bindParam(":id_kategori", $this->id_kategori);
+        $stmt->bindParam(":skor", $this->skor);
+        $stmt->bindParam(":tgl_waktu", $this->tgl_waktu);
         $stmt->bindParam(":id", $this->id);
 
-        if ($stmt->execute()) {
-            return true;
-        }
+        if ($stmt->execute()) return $stmt->rowCount() ? "yes" : "no";
+        
         return false;
     }
     // DELETE
-    function hapusKategori()
+    function hapusHasil()
     {
         $sqlQuery = "DELETE FROM " . $this->db_table . " WHERE id = ?";
         $stmt = $this->conn->prepare($sqlQuery);
 
-        $this->id = htmlspecialchars(strip_tags($this->id));
+        $this->id = intval(strip_tags($this->id));
 
         $stmt->bindParam(1, $this->id);
 
         if ($stmt->execute()) {
-            return true;
+            return $stmt->rowCount();
         }
         return false;
     }

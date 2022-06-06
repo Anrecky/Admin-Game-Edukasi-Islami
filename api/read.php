@@ -40,30 +40,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     );
     array_push($questionArr, $e);
 
-    // $options = array();
 }
 
 echo json_encode($questionArr, JSON_UNESCAPED_UNICODE);
 
-// if ($itemCount2 > 0) {
-
-//     $employeeArr2 = array();
-//     $employeeArr2["body"] = array();
-//     $employeeArr2["itemCount"] = $itemCount2;
-//     while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)) {
-//         extract($row2);
-//         $e2 = array(
-//             "id" => $id,
-//             "opsi" => $opsi,
-//             "id_kategori" => $id_kategori,
-//             "jenis_kategori" => $jenis_kategori
-//         );
-//         array_push($employeeArr2["body"], $e2);
-//     }
-//     echo json_encode($employeeArr2, JSON_UNESCAPED_UNICODE);
-// } else {
-//     http_response_code(404);
-//     echo json_encode(
-//         array("message" => "No record found.")
-//     );
-// }

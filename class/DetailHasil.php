@@ -14,6 +14,7 @@ class DetailHasil
     public $opsi_empat;
     public $id_kategori;
     public $opsi_dipilih;
+    public $benar;
     public $id_hasil;
     public $tgl_waktu;
 
@@ -30,11 +31,19 @@ class DetailHasil
         $stmt->execute();
         return $stmt;
     }
+    public function ambilDetailHasilBerdasarkanIDHasil()
+    {
+        $sqlQuery = "SELECT tbl_h_d.id, tbl_h_d.benar,tbl_h_d.id_pertanyaan,tbl_p.pertanyaan, tbl_h_d.opsi_satu, tbl_h_d.opsi_dua, tbl_h_d.opsi_tiga, tbl_h_d.opsi_empat, tbl_k.jenis_kategori, tbl_h_d.opsi_dipilih, tbl_h_d.id_hasil, tbl_h_d.tgl_waktu FROM $this->db_table AS tbl_h_d INNER JOIN tbl_pertanyaan AS tbl_p ON tbl_p.id = tbl_h_d.id_pertanyaan RIGHT JOIN tbl_kategori AS tbl_k ON tbl_h_d.id_kategori = tbl_k.id WHERE tbl_h_d.id_hasil = :id_hasil";
+        $stmt = $this->conn->prepare($sqlQuery);
+        $stmt->bindParam(":id_hasil", $this->id_hasil, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt;
+    }
 
     // Tambah
     public function tambahDetailHasil()
     {
-        $sqlQuery = "INSERT INTO tbl_hasil_detail SET id_pertanyaan = :id_pertanyaan, opsi_satu = :opsi_satu, opsi_dua =:opsi_dua, opsi_tiga = :opsi_tiga, opsi_empat = :opsi_empat, id_kategori = :id_kategori, opsi_dipilih = :opsi_dipilih, id_hasil = :id_hasil";
+        $sqlQuery = "INSERT INTO tbl_hasil_detail SET id_pertanyaan = :id_pertanyaan, opsi_satu = :opsi_satu, opsi_dua =:opsi_dua, opsi_tiga = :opsi_tiga, opsi_empat = :opsi_empat, id_kategori = :id_kategori, benar = :benar ,opsi_dipilih = :opsi_dipilih, id_hasil = :id_hasil, tgl_waktu=:tgl_waktu";
 
         $stmt = $this->conn->prepare($sqlQuery);
 
@@ -46,6 +55,7 @@ class DetailHasil
         $this->opsi_empat = htmlspecialchars(strip_tags($this->opsi_empat));
         $this->id_kategori = intval(htmlspecialchars(strip_tags($this->id_kategori)));
         $this->opsi_dipilih = htmlspecialchars(strip_tags($this->opsi_dipilih));
+        $this->benar = intval(strip_tags($this->benar));
         $this->id_hasil = intval(htmlspecialchars(strip_tags($this->id_hasil)));
 
         // bind data
@@ -56,6 +66,8 @@ class DetailHasil
         $stmt->bindParam(":opsi_empat", $this->opsi_empat);
         $stmt->bindParam(":id_kategori", $this->id_kategori);
         $stmt->bindParam(":opsi_dipilih", $this->opsi_dipilih);
+        $stmt->bindParam(":benar", $this->benar);
+        $stmt->bindParam(":tgl_waktu", $this->tgl_waktu);
         $stmt->bindParam(":id_hasil", $this->id_hasil);
 
 
@@ -78,15 +90,24 @@ class DetailHasil
     // UPDATE
     public function perbaruiDetailHasil()
     {
-        $sqlQuery = "UPDATE " . $this->db_table . " SET jenis_kategori = :jenis_kategori WHERE id = :id";
+        $sqlQuery = "UPDATE " . $this->db_table . " SET id_kategori = :id_kategori, id_pertanyaan = :id_pertanyaan, opsi_satu = :opsi_satu, opsi_dua = :opsi_dua, opsi_tiga = :opsi_tiga, opsi_empat = :opsi_empat, opsi_dipilih = :opsi_dipilih, benar = :benar, id_hasil = :id_hasil, tgl_waktu = :tgl_waktu WHERE id = :id";
 
         $stmt = $this->conn->prepare($sqlQuery);
 
-        $this->jenis_kategori = htmlspecialchars(strip_tags($this->jenis_kategori));
+        $this->id_kategori = htmlspecialchars(strip_tags($this->id_kategori));
         $this->id = htmlspecialchars(strip_tags($this->id));
 
         // bind data
-        $stmt->bindParam(":jenis_kategori", $this->jenis_kategori);
+        $stmt->bindParam(":id_kategori", $this->id_kategori);
+        $stmt->bindParam(":id_pertanyaan", $this->id_pertanyaan);
+        $stmt->bindParam(":opsi_satu", $this->opsi_satu);
+        $stmt->bindParam(":opsi_dua", $this->opsi_dua);
+        $stmt->bindParam(":opsi_tiga", $this->opsi_tiga);
+        $stmt->bindParam(":opsi_empat", $this->opsi_empat);
+        $stmt->bindParam(":opsi_dipilih", $this->opsi_dipilih);
+        $stmt->bindParam(":benar", $this->benar);
+        $stmt->bindParam(":id_hasil", $this->id_hasil);
+        $stmt->bindParam(":tgl_waktu", $this->tgl_waktu);
         $stmt->bindParam(":id", $this->id);
 
         if ($stmt->execute()) {

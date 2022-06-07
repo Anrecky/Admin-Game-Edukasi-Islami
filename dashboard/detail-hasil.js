@@ -10,7 +10,7 @@ $(document).ready(function () {
     });
 
     var table = $('#tbl-data').DataTable({
-        order: [[9, 'desc']],
+
         initComplete: function () {
             $(".dt-buttons").addClass("my-2")
         },

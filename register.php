@@ -19,4 +19,5 @@ if(mysqli_query($con,$sql)){
 }else{
     echo "Eror: " . $sql . "<br>" . mysqli_error($con);
 }
+$con->close();
 */
